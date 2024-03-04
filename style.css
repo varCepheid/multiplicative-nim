@@ -1,0 +1,60 @@
+html {
+	height: 100%;
+	width: 100%;
+}
+
+h2 {
+	margin: 5px 0px;
+}
+
+h1 {
+	margin: 10px 0px;
+}
+
+div {
+	margin-bottom: 5px;
+}
+
+p {
+	margin: 5px 0px;
+}
+
+#error-text {
+	color: red;
+}
+
+#end-message {
+	display: none;
+}
+
+#product {
+	font-weight: bold;
+}
+
+#play-space {
+	display: none;
+}
+
+#parameters {
+	display: none;
+}
+
+#parameter-mode-message {
+	text-decoration: underline;
+}
+
+.parameter-headers {
+	text-decoration: underline;
+}
+
+#resetter {
+	font-weight: bold;
+}
+
+#parameter-applier {
+	font-weight: bold;
+}
+
+#starter {
+	font-weight: bold;
+}
