@@ -1,76 +1,112 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Play Multiplicative Nim!</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="script.js"></script>
+  </head>
 
-<!--
-	A one-person app, playing against the computer. At the basic level, it would do just one thing: user enters a number 2-9; computer (randomly) picks a number 2-9; product is shown after each choice; identifies a winner after running product surpasses 1,000.
-	If I dream big, it would also allow the user to indicate the following:
-		The winning product value (that is, instead of 1,000, they would say how much you play to).
-		The range of numbers to be chosen (like instead of just 2-9, they could choose 2-4 or 2-100). Maybe this is just asking what max value they’d choose?
-		Regular or misere (that is, do you win or lose if you pass 1,000?).
--->
+  <body>
+    <div id="multiplicative-nim">
+      <h1>Multiplicative Nim</h1>
+      <h2>How To Play</h2>
+      <p>
+        Enter a number (integer greater than 1) every turn in the box below.
+        <br />The product starts at 1 and gets multiplied by your entry and the
+        computer's entry every turn. <br />You win if the product first exceeds
+        the target value following your entry.
+      </p>
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>Play Multiplicative Nim!</title>
-	<link href="style.css" rel="stylesheet" type="text/css" />
-	<script src="script.js"></script>
-</head>
+      <h2>Play!</h2>
+      <input type="button" value="Start" onclick="start()" id="starter" />
+      <div id="play-space">
+        <div id="end-message"></div>
+        <div>
+          Current product:
+          <span id="product">1</span>
+          <br />
+          Previous entries:
+          <span id="entry-list"></span>
+          <br />
+        </div>
+        <div>
+          <input
+            type="number"
+            name="entry"
+            placeholder="Enter a number."
+            id="entry-box"
+          />
+          <input
+            type="button"
+            value="Submit"
+            onclick="handleEntry()"
+            id="submitter"
+          />
+        </div>
+        <div id="error-text"></div>
+        <div>
+          <input
+            type="button"
+            value="Start Over"
+            onclick="reset()"
+            id="resetter"
+          />
+        </div>
 
-<body>
-	<h1>Multiplicative Nim</h1>
-	<h2>How To Play</h2>
-	<p>Enter a number (integer greater than 1) every turn in the box below. <br />The product starts at 1 and gets multiplied by your entry and the computer's entry every turn. <br />You win if the product first exceeds the target value following your entry.</p>
+        <h2>Parameters</h2>
+        <div id="parameter-mode-settings">
+          <span id="parameter-mode-message">Playing Classic Mode</span>
+          <input
+            type="button"
+            value="Set Custom Parameters"
+            onclick="switchParameterSetup()"
+            id="parameter-mode-switcher"
+          />
+          <br />
+          <span id="parameter-mode-notes"
+            >Switching to custom parameters will reset the game.</span
+          >
+        </div>
 
-	<h2>Play!</h2>
-	<input type="button" value="Start" onclick="start()" id="starter" />
-	<div id="play-space">
-		<div id="end-message"></div>
-		<div>
-			Current product:
-			<span id="product">1</span>
-			<br />
-			Previous entries:
-			<span id="entry-list"></span>
-			<br />
-		</div>
-		<div>
-			<input type="number" name="entry" placeholder="Enter a number." id="entry-box" />
-			<input type="button" value="Submit" onclick="handleEntry()" id="submitter" />
-		</div>
-		<div id="error-text"></div>
-		<div>
-			<input type="button" value="Start Over" onclick="reset()" id="resetter" />
-		</div>
+        <div id="parameters">
+          <span class="parameter-headers"
+            >Maximum entry (must be at least 2):</span
+          >
+          <input type="number" value="9" min="2" id="max-entry" />
+          <br />
 
-		<h2>Parameters</h2>
-		<div id="parameter-mode-settings">
-			<span id="parameter-mode-message">Playing Classic Mode</span>
-			<input type="button" value="Set Custom Parameters" onclick="switchParameterSetup()" id="parameter-mode-switcher" />
-			<br />
-			<span id="parameter-mode-notes">Switching to custom parameters will reset the game.</span>
-		</div>
-	
-		<div id="parameters">
-			<span class="parameter-headers">Maximum entry (must be at least 2):</span>
-			<input type="number" value="9" min="2" id="max-entry" />
-			<br />
-	
-			<span class="parameter-headers">Target value (must be at least 10):</span>
-			<input type="number" value="1000" min="10" id="target" />
-			<br />
-	
-			<span class="parameter-headers">Win Condition:</span> <span id="win-type-message">Regular -- You win if you exceed the target value.</span>
-			<input type="button" value="Switch to Misere" onclick="switchWinType()" id="win-type-switcher" />
-			<br />
-	
-			<!-- add when hard mode is supported
-			<span class="parameter-headers">Mode:</span> <span id="computer-mode-message">Easy -- The computer chooses values randomly.</span>
-			<input type="button" value="Switch to Hard Mode" onclick="switchComputerMode()" id="computer-mode-switcher" /> -->
+          <span class="parameter-headers"
+            >Target value (must be at least 10):</span
+          >
+          <input type="number" value="1000" min="10" id="target" />
+          <br />
 
-			<input type="button" value="Apply Changes" onclick="reset()" id="parameter-applier" />
-		</div>
-	</div>
-</body>
+          <span class="parameter-headers">Win Condition:</span>
+          <span id="win-type-message"
+            >Regular -- You win if you exceed the target value.</span
+          >
+          <input
+            type="button"
+            value="Switch to Misere"
+            onclick="switchWinType()"
+            id="win-type-switcher"
+          />
+          <br />
 
+          <!-- add when hard mode is supported
+        <span class="parameter-headers">Mode:</span> <span id="computer-mode-message">Easy -- The computer chooses values randomly.</span>
+        <input type="button" value="Switch to Hard Mode" onclick="switchComputerMode()" id="computer-mode-switcher" /> -->
+
+          <input
+            type="button"
+            value="Apply Changes"
+            onclick="reset()"
+            id="parameter-applier"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
