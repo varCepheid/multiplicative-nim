@@ -48,7 +48,7 @@ const handleEntry = () => {
     // create computer response if player didn't win
     if (!gameOver) {
       if (parameters.hardMode) {
-        handleNumber(calcEntry());
+        handleNumber(calcEntry(parameters.target));
       } else {
         const oppEntry =
           Math.floor(Math.random() * (parameters.maxEntry - 1)) + 2;
@@ -87,8 +87,19 @@ const updateEntries = () => {
   document.getElementById('entry-list').innerHTML = entryList;
 };
 
-const calcEntry = () => {
-  return 2;
+const calcEntry = (target) => {
+  const max = parameters.maxEntry;
+  const lastTarget = Math.ceil(target / (2 * max));
+  if (product < lastTarget) {
+    return calcEntry(lastTarget);
+  }
+
+  const winThreshold = Math.ceil(target / max);
+  if (product >= winThreshold) {
+    return Math.min(Math.floor(((target - 1) * 2) / product), max);
+  } else {
+    return Math.floor(Math.random() * (max - 1)) + 2;
+  }
 };
 
 /** Reset the entire game. */
