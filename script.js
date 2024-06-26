@@ -198,3 +198,20 @@ const switchParameterSetup = () => {
     reset();
   }
 };
+
+/** Randomize the maximum entry. */
+const randomizeMax = () => {
+  const newMax = Math.floor(Math.random() * 23) + 3; // ranges 3 to 25
+  parameters.maxEntry = newMax;
+  document.getElementById('max-entry').value = newMax;
+};
+
+/** Randomize the maximum entry. */
+const randomizeTarget = () => {
+  // ranges 10 to 1 million, two sig figs
+  const value = Math.floor(Math.random() * 91) + 10; // ranges 10 to 100
+  const magnitude = Math.floor(Math.random() * 5); // ranges 0 to 4
+  const newTarget = value * Math.pow(10, magnitude);
+  parameters.target = newTarget;
+  document.getElementById('target').value = newTarget;
+};
