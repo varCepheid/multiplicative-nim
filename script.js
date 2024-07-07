@@ -51,7 +51,16 @@ const handleEntry = () => {
     // create computer response if player didn't win
     if (!gameOver) {
       if (parameters.hardMode) {
-        handleNumber(calcEntry(parameters.target));
+        // Misere is the same as regular, except the real target is half of the given target.
+        if (parameters.misere) {
+          handleEntry(
+            product < parameters.target / 2
+              ? calcEntry(parameters.target / 2)
+              : 2
+          );
+        } else {
+          handleNumber(calcEntry(parameters.target));
+        }
       } else {
         const oppEntry =
           Math.floor(Math.random() * (parameters.maxEntry - 1)) + 2;
@@ -78,7 +87,7 @@ const updateProduct = () => {
   if (product >= parameters.target) {
     handleWin();
   }
-  document.getElementById('product').innerHTML = product;
+  document.getElementById('product-display').innerHTML = product;
 };
 
 /** Update the displayed list of submitted numbers. */
@@ -196,8 +205,7 @@ const switchParameterSetup = () => {
     document.getElementById('parameter-mode-switcher').value =
       'Back to Classic';
     document.getElementById('parameter-mode-notes').innerHTML =
-      'Switching to Classic will reset the game.';
-
+      'Switching to Classic will reset the game. Click Apply Changes to reset the game with your new parameters.';
     reset();
   }
 };

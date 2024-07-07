@@ -14,6 +14,7 @@ body {
 
 h2 {
 	margin: 5px 0px;
+  color: navy;
 }
 
 h1 {
@@ -62,29 +63,21 @@ p {
 }
 
 #parameter-mode-message {
-	text-decoration: underline;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .parameter-headers {
-	text-decoration: underline;
-}
-
-#resetter {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 #parameter-applier {
-	font-weight: bold;
 	margin-top: 0.5em;
-}
-
-#starter {
-	font-weight: bold;
 }
 
 #grid {
   display: grid;
-  grid-template-columns: 1fr 250px 400px 1fr;
+  grid-template-columns: 1fr 250px 450px 1fr;
   justify-content: center;
 
   & > * {
@@ -107,4 +100,26 @@ p {
   grid-row: 2 / 3;
   max-width: 500px;
   justify-self: center;
+}
+
+.button {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  background: skyblue;
+  border-radius: 7px;
+  border: 2px solid skyblue;
+
+  &:hover, &:active {
+    background: blue;
+    border-color: blue;
+  }
+}
+
+.number-input {
+  background: skyblue;
+  border: none;
+  font-size: 16px;
+  font-family: inherit;
+  max-width: 80px;
 }
