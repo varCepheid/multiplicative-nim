@@ -21,8 +21,9 @@ const start = () => {
     parameters.target = document.getElementById('target').value;
   }
 
-  document.getElementById('target-display').value =
-    'Target: ' + parameters.target;
+  document.getElementById(
+    'target-display'
+  ).textContent = `Target: ${parameters.target}`;
 
   document.getElementById('starter').style.display = 'none';
   document.getElementById('play-space').style.display = 'block';
@@ -43,7 +44,7 @@ const handleEntry = () => {
       break;
     }
     if (entry < 2 || entry > parameters.maxEntry) {
-      createError('Entries must be between 2 and ' + parameters.maxEntry + '.');
+      createError(`Entries must be between 2 and ${parameters.maxEntry}.`);
       break;
     }
     handleNumber(entry);
@@ -53,7 +54,7 @@ const handleEntry = () => {
       if (parameters.hardMode) {
         // Misere is the same as regular, except the real target is half of the given target.
         if (parameters.misere) {
-          handleEntry(
+          handleNumber(
             product < parameters.target / 2
               ? calcEntry(parameters.target / 2)
               : 2
@@ -87,16 +88,16 @@ const updateProduct = () => {
   if (product >= parameters.target) {
     handleWin();
   }
-  document.getElementById('product-display').innerHTML = product;
+  document.getElementById('product-display').textContent = product;
 };
 
 /** Update the displayed list of submitted numbers. */
 const updateEntries = () => {
   let entryList = '';
   entries.forEach((entry) => {
-    entryList = entryList + ' ' + entry.toString();
+    entryList = `${entryList} ${entry.toString()}`;
   });
-  document.getElementById('entry-list').innerHTML = entryList;
+  document.getElementById('entry-list').textContent = entryList;
 };
 
 const calcEntry = (target) => {
@@ -131,7 +132,7 @@ const reset = () => {
 
 /** Set the text of the error-message element. */
 const createError = (message) => {
-  document.getElementById('error-text').innerHTML = message;
+  document.getElementById('error-text').textContent = message;
 };
 
 /** Figure out who won, display an end message, and hide the entry box. */
@@ -140,11 +141,10 @@ const handleWin = () => {
     const userWin = entries.length % 2;
     const element = document.getElementById('end-message');
     if (userWin === 1) {
-      element.innerHTML = 'Congratulations, you won!';
+      element.textContent = 'Congratulations, you won!';
       element.style.color = 'green';
     } else {
-      element.innerHTML =
-        'Sorry, the computer beat you to ' + parameters.target + '.';
+      element.textContent = `Sorry, the computer beat you to ${parameters.target}.`;
       element.style.color = 'red';
     }
     element.style.display = 'block';
@@ -159,11 +159,11 @@ const handleWin = () => {
 const switchWinType = () => {
   parameters.misere = !parameters.misere;
   if (parameters.misere) {
-    document.getElementById('win-type-message').innerHTML =
+    document.getElementById('win-type-message').textContent =
       'Misere -- You lose if you exceed the target value.';
     document.getElementById('win-type-switcher').value = 'Switch to Regular';
   } else {
-    document.getElementById('win-type-message').innerHTML =
+    document.getElementById('win-type-message').textContent =
       'Regular -- You win if you exceed the target value.';
     document.getElementById('win-type-switcher').value = 'Switch to Misere';
   }
@@ -173,12 +173,12 @@ const switchWinType = () => {
 const switchComputerMode = () => {
   parameters.hardMode = !parameters.hardMode;
   if (parameters.hardMode) {
-    document.getElementById('computer-mode-message').innerHTML =
+    document.getElementById('computer-mode-message').textContent =
       'Hard -- The computer chooses values optimally.';
     document.getElementById('computer-mode-switcher').value =
       'Switch to Easy Mode';
   } else {
-    document.getElementById('computer-mode-message').innerHTML =
+    document.getElementById('computer-mode-message').textContent =
       'Easy -- The computer chooses values randomly.';
     document.getElementById('computer-mode-switcher').value =
       'Switch to Hard Mode';
@@ -190,21 +190,21 @@ const switchParameterSetup = () => {
   parameters.classicMode = !parameters.classicMode;
   if (parameters.classicMode) {
     document.getElementById('parameters').style.display = 'none';
-    document.getElementById('parameter-mode-message').innerHTML =
+    document.getElementById('parameter-mode-message').textContent =
       'Playing Classic Mode';
     document.getElementById('parameter-mode-switcher').value =
       'Set Custom Parameters';
-    document.getElementById('parameter-mode-notes').innerHTML =
+    document.getElementById('parameter-mode-notes').textContent =
       'Switching to custom parameters will reset the game.';
 
     reset();
   } else {
     document.getElementById('parameters').style.display = 'block';
-    document.getElementById('parameter-mode-message').innerHTML =
+    document.getElementById('parameter-mode-message').textContent =
       'Playing With Custom Parameters';
     document.getElementById('parameter-mode-switcher').value =
       'Back to Classic';
-    document.getElementById('parameter-mode-notes').innerHTML =
+    document.getElementById('parameter-mode-notes').textContent =
       'Switching to Classic will reset the game. Click Apply Changes to reset the game with your new parameters.';
     reset();
   }
