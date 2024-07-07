@@ -17,12 +17,14 @@
         <div id="play-space">
           <div id="end-message"></div>
           <div>
+            <span id="target-display">Target: 1000</span>
+            <br>
             Current product:
-            <span id="product">1</span>
-            <br />
+            <span id="product-display">1</span>
+            <br>
             Previous entries:
             <span id="entry-list"></span>
-            <br />
+            <br>
           </div>
           <div>
             <input
@@ -60,7 +62,7 @@
               onclick="switchParameterSetup()"
               id="parameter-mode-switcher"
             />
-            <br />
+            <br>
             <span id="parameter-mode-notes"
               >Switching to custom parameters will reset the game.</span
             >
@@ -77,7 +79,7 @@
               onclick="randomizeMax()"
               id="random-max"
             />
-            <br />
+            <br>
 
             <span class="parameter-headers"
               >Target value (must be at least 10):</span
@@ -89,7 +91,7 @@
               onclick="randomizeTarget()"
               id="random-target"
             />
-            <br />
+            <br>
 
             <span class="parameter-headers">Win Condition:</span>
             <span id="win-type-message"
@@ -101,7 +103,7 @@
               onclick="switchWinType()"
               id="win-type-switcher"
             />
-            <br />
+            <br>
 
             <span class="parameter-headers">Mode:</span>
             <span id="computer-mode-message"
@@ -113,6 +115,7 @@
               onclick="switchComputerMode()"
               id="computer-mode-switcher"
             />
+            <br>
 
             <input
               type="button"
@@ -130,7 +133,7 @@
           Enter a number (integer greater than 1) every turn in the box below.
           The product starts at 1 and gets multiplied by your entry and the
           computer's entry every turn. You win if the product first exceeds the
-          target value following your entry.<br />
+          target value following your entry.<br>
           Click Start to begin playing. By default, entries cannot be greater
           than 9, and the computer chooses randomly. Click Set Custom Parameters
           to change the maximum entry, the target value, how the computer

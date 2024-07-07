@@ -21,6 +21,9 @@ const start = () => {
     parameters.target = document.getElementById('target').value;
   }
 
+  document.getElementById('target-display').value =
+    'Target: ' + parameters.target;
+
   document.getElementById('starter').style.display = 'none';
   document.getElementById('play-space').style.display = 'block';
 
